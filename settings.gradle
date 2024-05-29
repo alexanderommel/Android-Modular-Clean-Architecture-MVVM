@@ -21,3 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "Dandelion"
 include ':app'
+include ':core-android'
+include ':stores-android'
+include ':common-android'
+include ':stores'
+include ':checkout'
