@@ -1,4 +1,4 @@
-package com.alexandersw.stores_android.screens
+package com.alexandersw.stores_ui.screens
 
 import androidx.compose.runtime.Composable
 

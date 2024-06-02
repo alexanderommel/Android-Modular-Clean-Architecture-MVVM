@@ -1,4 +1,4 @@
-package com.alexandersw.stores_android
+package com.alexandersw.stores_ui
 
 import org.junit.Test
 
