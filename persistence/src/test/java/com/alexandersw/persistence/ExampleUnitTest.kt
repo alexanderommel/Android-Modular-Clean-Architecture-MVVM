@@ -1,4 +1,4 @@
-package com.alexandersw.common_android
+package com.alexandersw.persistence
 
 import org.junit.Test
 

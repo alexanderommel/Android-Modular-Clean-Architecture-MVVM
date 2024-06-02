@@ -23,6 +23,7 @@ rootProject.name = "Dandelion"
 include ':app'
 include ':core-android'
 include ':stores-ui'
-include ':common-android'
 include ':stores'
 include ':checkout'
+include ':persistence'
+include ':network'
