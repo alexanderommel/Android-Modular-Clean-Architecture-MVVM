@@ -4,13 +4,17 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.math.BigDecimal
 
 @Serializable
 data class Money(
-    @Serializable(with = BigDecimalAsStringSerializer::class) val amount: BigDecimal,
+    @Serializable(with = BigDecimalAsStringSerializer::class)
+    val amount: BigDecimal,
     val currency: Currency
 ) {
     enum class Currency {
@@ -21,9 +25,9 @@ data class Money(
         get() = "$$amount"
 }
 
-@OptIn(ExperimentalSerializationApi::class)
-@Serializer(forClass = BigDecimal::class)
 object BigDecimalAsStringSerializer : KSerializer<BigDecimal> {
+    override val descriptor: SerialDescriptor =
+        PrimitiveSerialDescriptor("BigDecimal", PrimitiveKind.STRING)
     override fun serialize(encoder: Encoder, value: BigDecimal) {
         encoder.encodeString(value.toPlainString())
     }
