@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.alexandersw.stores_android'
+    namespace 'com.alexandersw.stores_ui'
     compileSdk 34
 
     defaultConfig {
@@ -27,12 +27,19 @@ android {
     buildFeatures {
         compose true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.1'
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
 
 dependencies {
+
+    implementation project(":api")
+    implementation project(":common")
+    implementation project(":ui-dandelion")
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.lifecycle.runtime.ktx
