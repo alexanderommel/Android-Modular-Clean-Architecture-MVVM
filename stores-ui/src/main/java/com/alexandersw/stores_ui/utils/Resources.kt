@@ -13,6 +13,7 @@ fun loadImageFromAssets(name: String): Int {
         "chicken_logo" -> R.drawable.test_resource_chicken_logo
         "location_icon" -> R.drawable.location_icon
         "restaurant" -> R.drawable.location_icon
+        "store2" -> R.drawable.test_resource_restaurant2
         else -> R.drawable.test_resource_kfc_store // Fallback to a default image
     }
 }
