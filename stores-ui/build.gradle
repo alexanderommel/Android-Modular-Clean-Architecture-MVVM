@@ -38,6 +38,7 @@ android {
 dependencies {
 
     implementation project(":api")
+    implementation project(":testing")
     implementation project(":common")
     implementation project(":ui-dandelion")
 
