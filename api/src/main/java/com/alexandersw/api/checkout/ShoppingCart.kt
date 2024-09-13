@@ -8,8 +8,7 @@ import java.math.BigDecimal
 
 @Serializable
 data class ShoppingCart(
-    val id: Int,
-    val items: List<LineItem>,
+    val items: MutableList<LineItem>,
     val store: Store
 ) {
     val totalAmount: Money
