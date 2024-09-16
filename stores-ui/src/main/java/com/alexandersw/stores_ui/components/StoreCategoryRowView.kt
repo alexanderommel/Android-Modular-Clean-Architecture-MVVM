@@ -39,7 +39,7 @@ fun StoreCategoryRowPreview(){
     }
 }
 
-private val categories = listOf(
+val categories = listOf(
     StoreCategory(1,"Hamburguer","hamburger_logo"),
     StoreCategory(2,"Pizza","pizza_logo"),
     StoreCategory(3,"Ice cream","icecream_logo"),
