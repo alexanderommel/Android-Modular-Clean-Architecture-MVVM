@@ -9,12 +9,13 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Checkout(
     val id: String,
+    val userId: String,
     val shoppingCart: ShoppingCart,
     val store: Store,
-    val requestUtensils: Boolean,
+    val requestUtensils: Boolean=false,
     val note: String? = null,
-    val deliveryLocation: Location,
+    val deliveryLocation: Location = Location("","",""),
     val deliveryInstructions: String? = null,
-    val paymentMethod: PaymentMethod,
+    val paymentMethod: PaymentMethod = PaymentMethod.CASH,
     val paymentCard: PaymentCard? = null
 )
