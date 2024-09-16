@@ -25,9 +25,9 @@ import com.alexandersw.ui_dandelion.ui.theme.AppTheme
 import com.alexandersw.ui_dandelion.ui.theme.Black80
 
 @Composable
-fun CatalogueCategoryRowView(categories: List<ProductCategory>) {
+fun CatalogueCategoryRowView(categories: List<ProductCategory>, modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.padding(top = 4.dp, bottom = 8.dp)
+        modifier = modifier.padding(top = 4.dp, bottom = 8.dp)
     ) {
         Text(
             text = "Categories",
