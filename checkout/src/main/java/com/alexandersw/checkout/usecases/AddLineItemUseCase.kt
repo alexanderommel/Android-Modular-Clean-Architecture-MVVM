@@ -53,7 +53,7 @@ class AddLineItemUseCase(
             var exists = false
 
             for (c in checkouts) {
-                if (c.store.id == storeId) {
+                if (c.store.storeId == storeId) {
                     exists = true
                     checkout = c
                     checkout.shoppingCart.items
@@ -64,7 +64,7 @@ class AddLineItemUseCase(
 
             if (!exists) {
                 println("AddLineItemUseCase: Creating a new checkout")
-                checkout = Checkout("0",
+                checkout = Checkout("0",user.id,
                     ShoppingCart(mutableListOf(LineItem(0,product,lineItem.quantity)),store),
                     store,false,null,deliveryLocation,null,PaymentMethod.CASH,null)
                 localRepo.insertCheckout(checkout, user.id)
