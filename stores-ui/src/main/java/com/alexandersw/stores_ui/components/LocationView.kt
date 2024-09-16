@@ -30,10 +30,9 @@ import com.alexandersw.ui_dandelion.ui.theme.Green40
 import com.alexandersw.ui_dandelion.ui.theme.Green80
 
 @Composable
-fun LocationView() {
+fun LocationView(modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Surface(
