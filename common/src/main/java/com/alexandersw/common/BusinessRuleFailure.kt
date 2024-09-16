@@ -9,6 +9,8 @@ sealed class BusinessRuleFailure {
     object LocationNotFound : BusinessRuleFailure()
     data class InputMissing(val missingField: String) : BusinessRuleFailure()
     object RemoteDataChanged : BusinessRuleFailure()
+    object InvalidAccessToken: BusinessRuleFailure()
+    data class CustomErrorMessage(val message: String): BusinessRuleFailure()
 
     fun handleBusinessRuleFailure(): String {
         return when (this) {
@@ -20,6 +22,8 @@ sealed class BusinessRuleFailure {
             is InputMissing -> "missing.${this.missingField}"
             is RemoteDataChanged -> "network.data_changed"
             is LocationNotFound -> "location.not_found"
+            is InvalidAccessToken -> "invalid.access.token"
+            is CustomErrorMessage -> this.message
         }
     }
 }
