@@ -1,6 +1,7 @@
 package com.alexandersw.stores_ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -28,11 +29,12 @@ import com.alexandersw.ui_dandelion.ui.theme.Black80
 import java.math.BigDecimal
 
 @Composable
-fun ProductView(product: Product, modifier: Modifier = Modifier) {
+fun ProductView(product: Product, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Row(
         modifier = modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(3.dp))
+            .clickable { onClick() }
     ) {
         Column(
             modifier = Modifier
@@ -86,7 +88,7 @@ fun ProductPreview(){
     AppTheme {
         ProductView(product = Product(1,"Hamburger of Gods","Es una hamburguesa muy sabrosa que deberías probar al menos una vez en tu vida o te arrepentirás.","hamburger",
             Money(BigDecimal.TEN,Money.Currency.USD)
-        )
+        ), onClick = {}
         )
     }
 }
