@@ -28,7 +28,7 @@ class StoresApiInteractorImpl(
     }
 
     override suspend fun getCatalogue(store: Store): UseCaseResponse<Catalogue> {
-        return fetchCatalogueUseCase.invoke(store.id)
+        return fetchCatalogueUseCase.invoke(store.storeId)
     }
 
     override suspend fun getStoreById(id: Int): UseCaseResponse<Store> {
