@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Store(
-    val id: Int,
+    val storeId: Int,
     val name: String,
     val deliveryTime: String,
     val deliveryFee: String,
