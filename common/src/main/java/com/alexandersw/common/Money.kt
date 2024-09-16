@@ -14,15 +14,29 @@ import java.math.BigDecimal
 @Serializable
 data class Money(
     @Serializable(with = BigDecimalAsStringSerializer::class)
-    val amount: BigDecimal,
-    val currency: Currency
+    val amount: BigDecimal=BigDecimal.ZERO,
+    val currency: Currency = Currency.USD
 ) {
     enum class Currency {
         USD, EUR, GBP, CNY
     }
 
+
     val formattedAmount: String
-        get() = "$$amount"
+        get() = "$${amount.toPlainString()}"
+
+    fun addAndUpdate(plus: Money): Money {
+        val updatedAmount = this.amount.add(plus.amount)
+        return this.copy(amount = updatedAmount)
+    }
+
+    fun multiplyAndUpdate(factor: Money): Money {
+        val updatedAmount = this.amount.multiply(factor.amount)
+        return this.copy(amount = updatedAmount)
+    }
+
+    constructor() : this(BigDecimal.ZERO, Currency.USD)
+
 }
 
 object BigDecimalAsStringSerializer : KSerializer<BigDecimal> {
