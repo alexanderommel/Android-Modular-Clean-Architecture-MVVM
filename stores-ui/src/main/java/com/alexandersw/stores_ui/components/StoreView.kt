@@ -41,7 +41,6 @@ fun StoreView(store: Store) {
         color = Color.White
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.Start
         ) {
             val image: Painter = painterResource(id = loadImageFromAssets(store.storeImage))
@@ -73,7 +72,7 @@ fun StoreView(store: Store) {
                     fontWeight = FontWeight.SemiBold
                 )
             }
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(4.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -100,8 +99,9 @@ fun StorePreview() {
     AppTheme {
         StoreView(store = store1)
     }
+
 }
 
-private val store1 = Store(1, "Store 1", "30 mins", "5.00", "store1.jpg", "store1.jpg", 4.0,"5 km", Location("Quito 6 de Diciembre",
+private val store1 = Store(1, "Store 1", "30 mins", "5.00", "store2", "store1.jpg", 4.0,"5 km", Location("Quito 6 de Diciembre",
 1.0.toString(), 1.0.toString()
 ))
