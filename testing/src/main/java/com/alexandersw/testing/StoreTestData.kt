@@ -17,37 +17,37 @@ val test_data_stores = listOf(
         1.0.toString(), 1.0.toString()
     )
     ),
-    Store(2, "Purple House Restaurant", "20 mins", "3.00", "store2", "store2.jpg", 4.5, "4 km", Location("Ambato perimetral",1.0.toString(),1.0003.toString()))
+    Store(2, "Purple House Restaurant", "20 mins", "3.70", "store2", "store2.jpg", 4.5, "4 km", Location("Ambato perimetral",1.0.toString(),1.0003.toString()))
 )
 
 
 val test_data_products1: List<Product> = listOf(
     Product(
-        id = 1,
+        productId = 1,
         name = "Monster Hamburguer",
         description = "La hamburguesa monstruo X1 tiene los siguientes ingredientes: carne, queso, tomates pequeños, aceitinas, queso parmesano, y lechuga.",
-        imageUrl = "test_resource_product1",
+        imageUrl = "hamburger",
         price = Money(amount = BigDecimal.valueOf(1.2), currency = Money.Currency.USD)
     ),
     Product(
-        id = 2,
+        productId = 2,
         name = "Master's Hamburguer Gow",
         description = "La hamburguesa master X22222 tiene los siguientes ingredientes: carne, queso, tomates pequeños, aceitinas, queso parmesano, y lechuga.",
-        imageUrl = "test_resource_product1",
+        imageUrl = "hamburger",
         price = Money(amount = BigDecimal.valueOf(10), currency = Money.Currency.USD)
     )
 )
 
 val test_data_products2: List<Product> = listOf(
     Product(
-        id = 3,
+        productId = 3,
         name = "Funny Pizza",
         description = "La hamburguesa monstruo X1 tiene los siguientes ingredientes: carne, queso, tomates pequeños, aceitinas, queso parmesano, y lechuga.",
-        imageUrl = "product1_pizza",
+        imageUrl = "hamburger",
         price = Money(amount = BigDecimal.valueOf(12), currency = Money.Currency.USD)
     ),
     Product(
-        id = 4,
+        productId = 4,
         name = "The Greatest's World Pizza",
         description = "La hamburguesa master X22222 tiene los siguientes ingredientes: carne, queso, tomates pequeños, aceitinas, queso parmesano, y lechuga.",
         imageUrl = "product1_pizza",
@@ -57,14 +57,14 @@ val test_data_products2: List<Product> = listOf(
 
 val test_data_products3: List<Product> = listOf(
     Product(
-        id = 5,
+        productId = 5,
         name = "Funny Pizza Alternative",
         description = "La hamburguesa monstruo Alternative tiene los siguientes ingredientes: carne, queso, tomates pequeños, aceitinas, queso parmesano, y lechuga.",
         imageUrl = "product1_pizza",
         price = Money(amount = BigDecimal.valueOf(12), currency = Money.Currency.USD)
     ),
     Product(
-        id = 6,
+        productId = 6,
         name = "The Greatest's World Pizza Alternative",
         description = "La hamburguesa master Alternative tiene los siguientes ingredientes: carne, queso, tomates pequeños, aceitinas, queso parmesano, y lechuga.",
         imageUrl = "product1_pizza",
