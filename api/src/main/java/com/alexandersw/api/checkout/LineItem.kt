@@ -7,7 +7,7 @@ import java.math.BigDecimal
 
 @Serializable
 data class LineItem(
-    val id: Int,
+    val lineItemId: Int,
     val product: Product,
     val quantity: Int
 ) {
