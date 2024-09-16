@@ -70,7 +70,7 @@ The following diagram shows the modules of the application and the dependency gr
 The dependency graph was built considering the dependency inversion principle which states that concrete classes should depend on abstract classes, and abstract classes should avoid dependencies on other classes. 
 
 * The module 'app:dandelion' contains the app class with the @main annotation. This module is an iOS app that depends on every module of the system in order to create the implementations (concrete modules) of the protocols (abstract modules) and do the depedency injection activities throught the environment variables.
-* The orange modules 'feature:<name>' are abstract modules that contain the business logic and protocols that must be implemented by the concrete modules. Abstractions are inside the 'api' folder, and the business logic is wrapped as use case classes.
+* The orange modules 'feature:<name>' are abstract modules that contain the business logic and protocols that must be implemented by the concrete modules. Abstractions are inside the 'api' module, and the business logic is wrapped as use case classes.
 * The module 'common' contains models that are common to the different business activities. This module doesn't depend on any module.
 * The module 'ui-dandelion' contains ui custom components and despite being a concrete module, it is a type of reausable module.
 * The blue modules 'feature:<name>-ui' are concrete modules that contain the views and screens of the app. View classes are considered to be volatile classes due to the fact that they have the tendency to change frequently. This modules depend on abstract modules 'feature:<name>'.
