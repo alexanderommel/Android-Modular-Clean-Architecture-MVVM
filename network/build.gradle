@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-}
+    id 'kotlin-kapt'}
 
 android {
     namespace 'com.alexandersw.network'
@@ -30,6 +30,15 @@ android {
 }
 
 dependencies {
+
+    implementation project(":api")
+    implementation project(":common")
+
+    // Hilt dependency
+    implementation "com.google.dagger:hilt-android:2.48"
+
+    // Hilt compiler (annotation processor)
+    kapt "com.google.dagger:hilt-android-compiler:2.48"
 
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
