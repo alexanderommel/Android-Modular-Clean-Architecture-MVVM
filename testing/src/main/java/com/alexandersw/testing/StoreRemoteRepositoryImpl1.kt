@@ -10,16 +10,9 @@ import com.alexandersw.common.Money
 import com.alexandersw.common.UseCaseResponse
 import java.math.BigDecimal
 
-class StoreRemoteRepositoryImpl1 : StoreRemoteRepository {
+class StoreRemoteRepositoryFaker5 : StoreRemoteRepository {
     override suspend fun getStores(near: Location): UseCaseResponse<List<Store>> {
-        val stores = listOf(
-            Store(1, "Store 1", "30 mins", "5.00", "store1.jpg", "store1.jpg", 4.0,"5 km", Location("Quito 6 de Diciembre",
-                1.0.toString(), 1.0.toString()
-            )
-            ),
-            Store(2, "Store 2", "20 mins", "3.00", "store2.jpg", "store2.jpg", 4.5, "4 km", Location("Ambato perimetral",1.0.toString(),1.0003.toString()))
-        )
-        return UseCaseResponse.Success(stores)
+        return UseCaseResponse.Success(test_data_stores)
     }
 
     override suspend fun getCatalogue(storeId: Int): UseCaseResponse<Catalogue> {
@@ -30,5 +23,13 @@ class StoreRemoteRepositoryImpl1 : StoreRemoteRepository {
         val productCategory = ProductCategory(1, "Category 1", products)
         val catalogue = Catalogue(listOf(productCategory))
         return UseCaseResponse.Success(catalogue)
+    }
+
+    override suspend fun getStore(id: Int, bearerToken: String): UseCaseResponse<Store> {
+        return UseCaseResponse.Success(test_data_stores[0])
+    }
+
+    override suspend fun getProduct(id: Int, bearerToken: String): UseCaseResponse<Product> {
+        return UseCaseResponse.Success(test_data_products1[0])
     }
 }
