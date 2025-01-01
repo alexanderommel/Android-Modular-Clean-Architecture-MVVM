@@ -34,7 +34,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ProductDetailScreen(navController = rememberNavController(), product = test_data_products1[0], store = test_data_stores[0])
+                    AppNavigation()
+                    //StoresScreen(navController = rememberNavController(), user = test_data_user1)
+                    //ProductDetailScreen(navController = rememberNavController(), product = test_data_products1[0], store = test_data_stores[0])
                 }
             }
         }
