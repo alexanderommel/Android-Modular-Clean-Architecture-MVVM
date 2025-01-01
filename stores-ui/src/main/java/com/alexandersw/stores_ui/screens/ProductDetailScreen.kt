@@ -48,6 +48,7 @@ import com.alexandersw.stores_ui.R
 import com.alexandersw.stores_ui.utils.loadImageFromAssets
 import com.alexandersw.stores_ui.viewmodels.CatalogueViewModel
 import com.alexandersw.stores_ui.viewmodels.ProductViewModel
+import com.alexandersw.stores_ui.viewmodels.StoresViewModel
 import com.alexandersw.testing.CheckoutApiInteractorFaker
 import com.alexandersw.testing.StoreApiInteractorFaker
 import com.alexandersw.testing.test_data_products1
@@ -60,131 +61,151 @@ import java.math.BigDecimal
 fun ProductDetailScreen(
     navController: NavController,
     viewModel: ProductViewModel = hiltViewModel(),
-    product: Product,
-    store: Store
+    productId: Int,
+    storesViewModel: StoresViewModel
 ) {
-    // State for quantity
+
     var quantity by remember { mutableStateOf(1) }
-
-    // Observe itemAdded state
     val itemAdded by viewModel.itemAdded.collectAsState()
+    val productState by viewModel.productState.collectAsState()
+    val storeState by storesViewModel.storePicked.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
-    // Navigate back to root if itemAdded is true
-    LaunchedEffect(itemAdded) {
-        if (itemAdded) {
-            navController.popBackStack(navController.graph.startDestinationId, false)
-        }
+    if (storeState == null){
+        navController.popBackStack(navController.graph.startDestinationId,false)
     }
 
-    // Handle UI
-    Column(modifier = Modifier) {
+    if (isLoading){
+        Text(text = "Cargando...")
+    }
 
-        Text(text = "${product.name}",
-            color = Color.Black, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(top = 6.dp, bottom = 12.dp, start = 20.dp, end = 20.dp))
+    storeState?.let { store ->
 
-        Image(
-            painter = painterResource(id = loadImageFromAssets(product.imageUrl)),
-            contentDescription = null,
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f)
-
-        )
-
-        Row(modifier = Modifier.padding(top = 12.dp, start = 20.dp, end = 20.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = Icons.Filled.Home,
-                contentDescription = null,
-                modifier = Modifier.size(16.dp)
-            )
-            Text(
-                text = store.name,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp,
-                modifier = Modifier.padding(start = 8.dp)
-            )
+        LaunchedEffect(Unit) {
+            viewModel.loadProduct(productId)
         }
 
-        Row(modifier = Modifier.padding(top = 2.dp, start = 20.dp, end = 20.dp)) {
-            Text(
-                text = product.name,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = "${product.price.amount}$",
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp,
-                color = MaterialTheme.colorScheme.primary // Replace with your color
-            )
-        }
+        productState?.let { product ->
 
-        Text(
-            text = product.description,
-            modifier = Modifier.padding(top = 12.dp, start = 20.dp, end = 20.dp)
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Divider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(0.5.dp)
-                ,
-            color = Color.Gray // Replace with your color
-        )
-
-        Row(modifier = Modifier.padding(top = 14.dp, bottom = 14.dp, start = 20.dp, end = 20.dp), verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = { if (quantity > 1) quantity -= 1 }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_remove_circle_24),
-                    contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    tint = Color.Gray // Replace with your color
-                )
+            LaunchedEffect(itemAdded) {
+                if (itemAdded) {
+                    navController.popBackStack(navController.graph.startDestinationId, false)
+                }
             }
 
-            Text(
-                text = quantity.toString(),
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.padding(horizontal = 8.dp)
-            )
+            Column(modifier = Modifier) {
 
-            IconButton(onClick = { quantity += 1 }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_add_circle_24),
+                Text(text = product.name,
+                    color = Color.Black, fontSize = 28.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(top = 6.dp, bottom = 12.dp, start = 20.dp, end = 20.dp))
+
+                Image(
+                    painter = painterResource(id = loadImageFromAssets(product.imageUrl)),
                     contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    tint = MaterialTheme.colorScheme.primary// Replace with your color
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+
                 )
-            }
 
-            Spacer(modifier = Modifier.width(4.dp))
+                Row(modifier = Modifier.padding(top = 12.dp, start = 20.dp, end = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.Home,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = store.name,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
 
-            Button(
-                onClick = {
-                    val lineItem = LineItemDto(productId = product.productId, quantity = quantity)
-                    viewModel.addLineItemToShoppingCart(storeId = store.storeId, lineItem = lineItem)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(20.dp)
-            ) {
-                val individualPrice = product.price
-                val factor = Money(quantity.toBigDecimal(),Money.Currency.USD)
-                val price = individualPrice.multiplyAndUpdate(factor)
+                Row(modifier = Modifier.padding(top = 2.dp, start = 20.dp, end = 20.dp)) {
+                    Text(
+                        text = product.name,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Text(
+                        text = "${product.price.amount}$",
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.primary // Replace with your color
+                    )
+                }
+
                 Text(
-                    text = "Agregar ${price.formattedAmount}",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color.Black
+                    text = product.description,
+                    modifier = Modifier.padding(top = 12.dp, start = 20.dp, end = 20.dp)
                 )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Divider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(0.5.dp)
+                    ,
+                    color = Color.Gray // Replace with your color
+                )
+
+                Row(modifier = Modifier.padding(top = 14.dp, bottom = 14.dp, start = 20.dp, end = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = { if (quantity > 1) quantity -= 1 }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_remove_circle_24),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp),
+                            tint = Color.Gray // Replace with your color
+                        )
+                    }
+
+                    Text(
+                        text = quantity.toString(),
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(horizontal = 8.dp)
+                    )
+
+                    IconButton(onClick = { quantity += 1 }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_add_circle_24),
+                            contentDescription = null,
+                            modifier = Modifier.size(32.dp),
+                            tint = MaterialTheme.colorScheme.primary// Replace with your color
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(4.dp))
+
+                    Button(
+                        onClick = {
+                            val lineItem = LineItemDto(productId = product.productId, quantity = quantity)
+                            viewModel.addLineItemToShoppingCart(storeId = store.storeId, lineItem = lineItem)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(20.dp),
+                    ) {
+                        val individualPrice = product.price
+                        val factor = Money(quantity.toBigDecimal(),Money.Currency.USD)
+                        val price = individualPrice.multiplyAndUpdate(factor)
+                        Text(
+                            text = "Agregar ${price.formattedAmount}",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.Black
+                        )
+                    }
+
+                }
             }
 
         }
     }
+
+
 }
 
 
@@ -193,6 +214,8 @@ fun ProductDetailScreen(
 fun ProductDetailPreview(){
     val navController = rememberNavController()
     AppTheme {
-        ProductDetailScreen(navController = navController, viewModel = ProductViewModel(CheckoutApiInteractorFaker()) , product = test_data_products1[0], store = test_data_stores[0])
+        val productViewModel = ProductViewModel(CheckoutApiInteractorFaker(), StoreApiInteractorFaker())
+        val storesViewModel = StoresViewModel(StoreApiInteractorFaker(), CheckoutApiInteractorFaker())
+        ProductDetailScreen(navController = navController, viewModel =  productViewModel, productId = test_data_products1[0].productId, storesViewModel = storesViewModel)
     }
 }
