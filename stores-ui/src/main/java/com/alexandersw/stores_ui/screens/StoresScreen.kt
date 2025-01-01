@@ -87,6 +87,7 @@ fun StoresScreen(navController: NavController, user: User, modifier: Modifier = 
         ) {
             items(stores.size){ storeIndex ->
                 Button(onClick = {
+                    storesViewModel.setStorePicked(stores[storeIndex])
                     navController.navigate("catalogueScreen")
                 }, shape = RectangleShape, elevation = null, border = null,
                     contentPadding = PaddingValues(0.dp)
@@ -100,6 +101,9 @@ fun StoresScreen(navController: NavController, user: User, modifier: Modifier = 
             }
         }
 
+            if (checkouts.isNotEmpty()){
+                Text(text = "Checkouts")
+            }
 
     }
 }
