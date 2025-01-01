@@ -21,8 +21,5 @@ data class CheckoutEntity(
     //@Embedded val paymentMethod: PaymentMethod=PaymentMethod.CASH,
     @Embedded val paymentCard: PaymentCard?,
      val shoppingCart: ShoppingCart // Needs type converter
-
-
-
 )
 
