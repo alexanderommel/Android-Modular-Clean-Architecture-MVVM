@@ -83,7 +83,8 @@ val test_data_restaurantCategories: List<StoreCategory> = listOf(
 val test_data_productCategories: List<ProductCategory> = listOf(
     ProductCategory(id = 1, name = "Hamburguesas", products = test_data_products1),
     ProductCategory(id = 2, name = "Pizzas", products = test_data_products2),
-    ProductCategory(id = 3, name = "Helados", products = test_data_products3)
+    ProductCategory(id = 3, name = "Helados", products = test_data_products3),
+    ProductCategory(id = 4, name = "Helados Variados", products = test_data_products3)
 )
 
 var test_data_catalog = Catalogue(categories = test_data_productCategories)
