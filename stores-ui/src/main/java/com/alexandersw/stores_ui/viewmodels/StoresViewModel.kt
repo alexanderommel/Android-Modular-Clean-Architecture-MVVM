@@ -31,6 +31,9 @@ class StoresViewModel @Inject constructor (val api: StoresApiInteractor, val che
     private val _checkouts = MutableStateFlow<List<Checkout>>(emptyList())
     val checkoutsFlow: Flow<List<Checkout>> = _checkouts.asStateFlow()
 
+    private val _storePicked = MutableStateFlow<Store?>(null)
+    val storePicked: StateFlow<Store?> = _storePicked
+
 
     init {
         fetchItems()
@@ -39,7 +42,10 @@ class StoresViewModel @Inject constructor (val api: StoresApiInteractor, val che
                 _checkouts.value = checks
             }
         }
+    }
 
+    fun setStorePicked(store: Store){
+        _storePicked.value = store
     }
 
     //suspend fun checkouts(): Flow<List<Checkout>> = checkout_api.getAll()
