@@ -7,6 +7,7 @@ import com.alexandersw.api.stores.Store
 import com.alexandersw.api.stores.StoresApiInteractor
 import com.alexandersw.common.UseCaseResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -35,13 +36,16 @@ class CatalogueViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
+                delay(1000)
                 val response = api.getCatalogue(store)
                 when (response) {
                     is UseCaseResponse.Success -> {
+                        println("CatalogueViewModel: Fetch catalogue data Success")
                         _catalogueState.value = response.data
                         _isLoading.value = false
                     }
                     is UseCaseResponse.Error -> {
+                        println("CatalogueViewModel: Fetch catalogue data Error")
                         _errorLocalized.value = response.failure.handleBusinessRuleFailure()
                         _isLoading.value = false
                     }
