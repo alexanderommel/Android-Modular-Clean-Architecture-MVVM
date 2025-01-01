@@ -46,7 +46,7 @@ class Converters {
 
     @TypeConverter
     fun toLocation(locationString: String): Location {
-        val type = object : TypeToken<Product>() {}.type
+        val type = object : TypeToken<Location>() {}.type
         return Gson().fromJson(locationString, type)
     }
 
